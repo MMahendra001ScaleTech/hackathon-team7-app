@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 export default function LandingPage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     setMounted(true);
@@ -51,12 +52,6 @@ export default function LandingPage() {
             className="text-gray-600 hover:text-orange-600"
           >
             How it Works
-          </a>
-          <a
-            href="#testimonials"
-            className="text-gray-600 hover:text-orange-600"
-          >
-            Testimonials
           </a>
         </nav>
         <div className="flex items-center space-x-3">
@@ -133,7 +128,7 @@ export default function LandingPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="bg-white p-8 rounded-xl shadow-md">
+          <div className="bg-white p-8 rounded-xl shadow-[0_8px_30px_-6px_rgba(234,88,12,0.2)] hover:shadow-[0_12px_40px_-6px_rgba(234,88,12,0.3)] transition-all duration-300">
             <div className="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center mb-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -158,7 +153,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-md">
+          <div className="bg-white p-8 rounded-xl shadow-[0_8px_30px_-6px_rgba(234,88,12,0.2)] hover:shadow-[0_12px_40px_-6px_rgba(234,88,12,0.3)] transition-all duration-300">
             <div className="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center mb-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +178,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-md">
+          <div className="bg-white p-8 rounded-xl shadow-[0_8px_30px_-6px_rgba(234,88,12,0.2)] hover:shadow-[0_12px_40px_-6px_rgba(234,88,12,0.3)] transition-all duration-300">
             <div className="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center mb-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +204,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-md">
+          <div className="bg-white p-8 rounded-xl shadow-[0_8px_30px_-6px_rgba(234,88,12,0.2)] hover:shadow-[0_12px_40px_-6px_rgba(234,88,12,0.3)] transition-all duration-300">
             <div className="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center mb-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +230,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-md">
+          <div className="bg-white p-8 rounded-xl shadow-[0_8px_30px_-6px_rgba(234,88,12,0.2)] hover:shadow-[0_12px_40px_-6px_rgba(234,88,12,0.3)] transition-all duration-300">
             <div className="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center mb-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +255,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-md">
+          <div className="bg-white p-8 rounded-xl shadow-[0_8px_30px_-6px_rgba(234,88,12,0.2)] hover:shadow-[0_12px_40px_-6px_rgba(234,88,12,0.3)] transition-all duration-300">
             <div className="h-12 w-12 rounded-lg bg-orange-100 flex items-center justify-center mb-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -283,6 +278,67 @@ export default function LandingPage() {
               fixed deposits, SIPs, or stocks.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* How it Works Section */}
+      <section id="how-it-works" className="container mx-auto px-4 py-16 md:py-24 bg-orange-50">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+            How KutumbKhata Works
+          </h2>
+          <p className="mt-4 text-lg text-gray-700 max-w-3xl mx-auto">
+            Three simple steps to take control of your family's finances
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {/* Step 1 */}
+          <div className="bg-white p-8 rounded-xl shadow-[0_8px_30px_-6px_rgba(234,88,12,0.2)] hover:shadow-[0_12px_40px_-6px_rgba(234,88,12,0.3)] transition-all duration-300 relative">
+            <div className="absolute -top-4 -left-4 h-12 w-12 rounded-full bg-orange-600 text-white flex items-center justify-center text-xl font-bold">
+              1
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-4">
+              Sign Up & Set Up
+            </h3>
+            <p className="text-gray-700">
+              Create your account in seconds. Add your family members and set up your monthly budget goals.
+            </p>
+          </div>
+
+          {/* Step 2 */}
+          <div className="bg-white p-8 rounded-xl shadow-[0_8px_30px_-6px_rgba(234,88,12,0.2)] hover:shadow-[0_12px_40px_-6px_rgba(234,88,12,0.3)] transition-all duration-300 relative">
+            <div className="absolute -top-4 -left-4 h-12 w-12 rounded-full bg-orange-600 text-white flex items-center justify-center text-xl font-bold">
+              2
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-4">
+              Track Daily Expenses
+            </h3>
+            <p className="text-gray-700">
+              Log your daily expenses with our quick-add feature. Our AI automatically categorizes your transactions.
+            </p>
+          </div>
+
+          {/* Step 3 */}
+          <div className="bg-white p-8 rounded-xl shadow-[0_8px_30px_-6px_rgba(234,88,12,0.2)] hover:shadow-[0_12px_40px_-6px_rgba(234,88,12,0.3)] transition-all duration-300 relative">
+            <div className="absolute -top-4 -left-4 h-12 w-12 rounded-full bg-orange-600 text-white flex items-center justify-center text-xl font-bold">
+              3
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-4">
+              Get Smart Insights
+            </h3>
+            <p className="text-gray-700">
+              Receive personalized insights and recommendations to help your family save more and spend wisely.
+            </p>
+          </div>
+        </div>
+
+        <div className="text-center mt-12">
+          <Link href="/auth/register">
+            <Button className="bg-orange-600 hover:bg-orange-700 text-lg py-6 px-8">
+              Start Your Journey
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -361,7 +417,7 @@ export default function LandingPage() {
           </div>
           <div className="border-t border-gray-200 mt-8 pt-8 flex flex-col md:flex-row justify-between">
             <p className="text-gray-600 text-sm mb-4 md:mb-0">
-              © 2023 KutumbKhata. All rights reserved.
+              © {currentYear} KutumbKhata. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <a
