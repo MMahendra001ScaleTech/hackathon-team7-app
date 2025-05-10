@@ -20,6 +20,7 @@ import { AuthLayout } from '@/components/layout/auth-layout';
 import { toast } from 'sonner';
 import HttpService from '@/shared/services/http.service';
 import { API_CONFIG } from '@/shared/constants/constant';
+import AuthService from '@/shared/services/auth.service';
 
 const formSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -50,7 +51,7 @@ export default function LoginPage() {
         password: values.password,
       });
 
-      console.log(response);
+      AuthService.setAuthData(response.data.access_token);
 
       // Redirect to dashboard
       router.push('/dashboard');

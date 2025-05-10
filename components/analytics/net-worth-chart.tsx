@@ -1,18 +1,18 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { 
-  LineChart, 
-  Line, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer, 
-  ReferenceLine 
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  ReferenceLine,
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -28,7 +28,10 @@ interface NetWorthChartProps {
   initialBalance?: number;
 }
 
-export function NetWorthChart({ transactions, initialBalance = 100000 }: NetWorthChartProps) {
+export function NetWorthChart({
+  transactions,
+  initialBalance = 100000,
+}: NetWorthChartProps) {
   const [timeRange, setTimeRange] = useState<'15d' | '30d' | '90d'>('15d');
 
   const days = timeRange === '15d' ? 15 : timeRange === '30d' ? 30 : 90;
@@ -36,25 +39,28 @@ export function NetWorthChart({ transactions, initialBalance = 100000 }: NetWort
   const data = useMemo(() => {
     const startDate = startOfDay(subDays(new Date(), days));
     const endDate = startOfDay(new Date());
-    
+
     // Generate all dates in the selected interval
     const allDates = eachDayOfInterval({ start: startDate, end: endDate });
-    
+
     // Create a map of dates to balance changes
     const dateMap: Record<string, number> = {};
-    allDates.forEach(date => {
+    allDates.forEach((date) => {
       const dateString = date.toISOString().split('T')[0];
       dateMap[dateString] = 0;
     });
-    
+
     // Add transaction amounts to the appropriate dates
-    transactions.forEach(transaction => {
+    transactions.forEach((transaction) => {
       const transactionDate = transaction.date.split('T')[0];
       if (dateMap[transactionDate] !== undefined) {
-        dateMap[transactionDate] += transaction.type === 'income' ? transaction.amount : -transaction.amount;
+        dateMap[transactionDate] +=
+          transaction.type === 'income'
+            ? transaction.amount
+            : -transaction.amount;
       }
     });
-    
+
     // Convert to cumulative balance
     let balance = initialBalance;
     return Object.entries(dateMap).map(([date, change]) => {
@@ -69,7 +75,7 @@ export function NetWorthChart({ transactions, initialBalance = 100000 }: NetWort
 
   return (
     <Card className="w-full">
-      <CardHeader className="flex flex-row items-center justify-between pb-4">
+      {/* <CardHeader className="flex flex-row items-center justify-between pb-4">
         <CardTitle className="text-lg">Net Worth Trend</CardTitle>
         <Select
           value={timeRange}
@@ -84,7 +90,7 @@ export function NetWorthChart({ transactions, initialBalance = 100000 }: NetWort
             <SelectItem value="90d">Last 90 Days</SelectItem>
           </SelectContent>
         </Select>
-      </CardHeader>
+      </CardHeader> */}
       <CardContent>
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
@@ -98,22 +104,27 @@ export function NetWorthChart({ transactions, initialBalance = 100000 }: NetWort
               }}
             >
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis 
-                dataKey="formattedDate" 
+              <XAxis
+                dataKey="formattedDate"
                 tick={{ fontSize: 12 }}
                 tickMargin={10}
                 interval="preserveStartEnd"
               />
               <YAxis
-                tickFormatter={(value) => formatCurrency(value).replace('₹', '')}
+                tickFormatter={(value) =>
+                  formatCurrency(value).replace('₹', '')
+                }
                 tick={{ fontSize: 12 }}
               />
               <Tooltip
-                formatter={(value) => [formatCurrency(value as number), 'Balance']}
+                formatter={(value) => [
+                  formatCurrency(value as number),
+                  'Balance',
+                ]}
                 labelFormatter={(label) => `Date: ${label}`}
-                contentStyle={{ 
-                  borderRadius: '8px', 
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)' 
+                contentStyle={{
+                  borderRadius: '8px',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
                 }}
               />
               <ReferenceLine y={0} stroke="#666" />

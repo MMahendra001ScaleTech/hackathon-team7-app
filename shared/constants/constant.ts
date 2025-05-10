@@ -9,6 +9,7 @@ export const API_CONFIG = {
   path: {
     login: 'auth/login',
     register: 'auth/register',
+    family: 'family/members',
   },
 };
 
