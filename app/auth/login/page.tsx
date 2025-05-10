@@ -18,6 +18,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { AuthLayout } from '@/components/layout/auth-layout';
 import { toast } from 'sonner';
+import HttpService from '@/shared/services/http.service';
+import { API_CONFIG } from '@/shared/constants/constant';
 
 const formSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -40,14 +42,19 @@ export default function LoginPage() {
 
   const onSubmit = async (values: FormValues) => {
     setIsLoading(true);
-    
+
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      const response = await HttpService.post(API_CONFIG.path.login, {
+        email: values.email,
+        password: values.password,
+      });
+
+      console.log(response);
+
       // Redirect to dashboard
       router.push('/dashboard');
-      
+
       // Show success toast
       toast.success('Logged in successfully!');
     } catch (error) {
@@ -72,17 +79,17 @@ export default function LoginPage() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input 
-                    type="email" 
-                    placeholder="Enter your email" 
-                    {...field} 
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
+
           <FormField
             control={form.control}
             name="password"
@@ -90,37 +97,37 @@ export default function LoginPage() {
               <FormItem>
                 <div className="flex items-center justify-between">
                   <FormLabel>Password</FormLabel>
-                  <Link 
-                    href="/auth/forgot-password" 
+                  <Link
+                    href="/auth/forgot-password"
                     className="text-xs text-orange-600 hover:text-orange-800"
                   >
                     Forgot password?
                   </Link>
                 </div>
                 <FormControl>
-                  <Input 
-                    type="password" 
-                    placeholder="Enter your password" 
-                    {...field} 
+                  <Input
+                    type="password"
+                    placeholder="Enter your password"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          
-          <Button 
-            type="submit" 
-            className="w-full bg-orange-600 hover:bg-orange-700" 
+
+          <Button
+            type="submit"
+            className="w-full bg-orange-600 hover:bg-orange-700"
             disabled={isLoading}
           >
             {isLoading ? 'Signing in...' : 'Sign in'}
           </Button>
-          
+
           <div className="text-center text-sm">
             Don't have an account?{' '}
-            <Link 
-              href="/auth/register" 
+            <Link
+              href="/auth/register"
               className="font-medium text-orange-600 hover:text-orange-800"
             >
               Sign up

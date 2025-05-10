@@ -6,8 +6,9 @@ import { Providers } from './providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'AI-vaala Galla | Smart Family Finance Manager',
-  description: 'Track your expenses, investments, and savings with AI assistance tailored for Indian families',
+  title: 'KutumbKhata | Smart Family Finance Manager',
+  description:
+    'Track your expenses, investments, and savings with AI assistance tailored for Indian families',
 };
 
 export default function RootLayout({
@@ -18,9 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
