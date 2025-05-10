@@ -27,8 +27,13 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Investment } from '@/lib/types';
-import { formatCurrency, formatDate, formatPercentage } from '@/lib/utils/formatters';
+import {
+  formatCurrency,
+  formatDate,
+  formatPercentage,
+} from '@/lib/utils/formatters';
 import { ChevronDown, Filter, Search, MoreHorizontal } from 'lucide-react';
+import { AddInvestmentDialog } from './add-investment-dialog';
 
 interface InvestmentTableProps {
   investments: Investment[];
@@ -37,11 +42,12 @@ interface InvestmentTableProps {
 export function InvestmentTable({ investments }: InvestmentTableProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Get unique investment types
   const investmentTypes = useMemo(() => {
     const types = new Set<string>();
-    investments.forEach(investment => {
+    investments.forEach((investment) => {
       types.add(investment.type);
     });
     return Array.from(types);
@@ -50,7 +56,7 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
   // Get unique family members
   const familyMembers = useMemo(() => {
     const members = new Set<string>();
-    investments.forEach(investment => {
+    investments.forEach((investment) => {
       if (investment.familyMember) {
         members.add(investment.familyMember);
       }
@@ -61,7 +67,7 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
   // Get unique goals
   const goals = useMemo(() => {
     const goalSet = new Set<string>();
-    investments.forEach(investment => {
+    investments.forEach((investment) => {
       if (investment.goal) {
         goalSet.add(investment.goal);
       }
@@ -71,9 +77,12 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
 
   // Filter investments
   const filteredInvestments = useMemo(() => {
-    return investments.filter(investment => {
+    return investments.filter((investment) => {
       // Apply search term filter
-      if (searchTerm && !investment.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (
+        searchTerm &&
+        !investment.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
         return false;
       }
 
@@ -88,7 +97,10 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
 
   // Calculate total investment amount
   const totalInvestment = useMemo(() => {
-    return filteredInvestments.reduce((total, investment) => total + investment.amount, 0);
+    return filteredInvestments.reduce(
+      (total, investment) => total + investment.amount,
+      0
+    );
   }, [filteredInvestments]);
 
   return (
@@ -127,8 +139,8 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
                   All Types
                 </DropdownMenuItem>
                 {investmentTypes.map((type) => (
-                  <DropdownMenuItem 
-                    key={type} 
+                  <DropdownMenuItem
+                    key={type}
                     onClick={() => setFilterType(type)}
                   >
                     {type}
@@ -136,7 +148,10 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button className="bg-orange-600 hover:bg-orange-700">
+            <Button
+              className="bg-orange-600 hover:bg-orange-700"
+              onClick={() => setIsDialogOpen(true)}
+            >
               Add Investment
             </Button>
           </div>
@@ -151,7 +166,9 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
               <TableHead>Type</TableHead>
               <TableHead>Family Member</TableHead>
               <TableHead className="hidden md:table-cell">Start Date</TableHead>
-              <TableHead className="hidden md:table-cell">Return Rate</TableHead>
+              <TableHead className="hidden md:table-cell">
+                Return Rate
+              </TableHead>
               <TableHead className="hidden lg:table-cell">Goal</TableHead>
               <TableHead className="w-[50px]"></TableHead>
             </TableRow>
@@ -160,7 +177,9 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
             {filteredInvestments.length > 0 ? (
               filteredInvestments.map((investment) => (
                 <TableRow key={investment.id} className="hover:bg-muted/50">
-                  <TableCell className="font-medium">{investment.name}</TableCell>
+                  <TableCell className="font-medium">
+                    {investment.name}
+                  </TableCell>
                   <TableCell>{formatCurrency(investment.amount)}</TableCell>
                   <TableCell>
                     <span className="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset">
@@ -168,11 +187,17 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
                     </span>
                   </TableCell>
                   <TableCell>{investment.familyMember || '-'}</TableCell>
-                  <TableCell className="hidden md:table-cell">{formatDate(investment.startDate)}</TableCell>
                   <TableCell className="hidden md:table-cell">
-                    {investment.returnRate ? formatPercentage(investment.returnRate) : '-'}
+                    {formatDate(investment.startDate)}
                   </TableCell>
-                  <TableCell className="hidden lg:table-cell">{investment.goal || '-'}</TableCell>
+                  <TableCell className="hidden md:table-cell">
+                    {investment.returnRate
+                      ? formatPercentage(investment.returnRate)
+                      : '-'}
+                  </TableCell>
+                  <TableCell className="hidden lg:table-cell">
+                    {investment.goal || '-'}
+                  </TableCell>
                   <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
@@ -184,7 +209,9 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
                         <DropdownMenuItem>View Details</DropdownMenuItem>
                         <DropdownMenuItem>Edit</DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+                        <DropdownMenuItem className="text-red-600">
+                          Delete
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -208,6 +235,8 @@ export function InvestmentTable({ investments }: InvestmentTableProps) {
           </div>
         </div>
       </CardContent>
+
+      <AddInvestmentDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} />
     </Card>
   );
 }

@@ -28,12 +28,12 @@ export default function DashboardPage() {
 
         {/* Stats Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <StatsCard
+          {/* <StatsCard
             title="Net Worth"
             value={formatCurrency(netWorth.amount)}
             change={netWorth.change}
             icon={<Landmark className="h-5 w-5 text-orange-500" />}
-          />
+          /> */}
           <StatsCard
             title="Monthly Spending"
             value={formatCurrency(monthlySpending.amount)}
