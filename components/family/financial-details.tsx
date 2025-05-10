@@ -176,13 +176,13 @@ export function FinancialDetails({
                       </span>
                     </div>
                     <Progress
-                      value={(data.savings.total / data.savings.goal) * 100}
+                      value={Math.min((data.savings.total / data.savings.goal) * 100, 100)}
                     />
                     <div className="flex justify-between text-sm text-muted-foreground">
                       <span>Goal: ₹{data.savings.goal.toLocaleString()}</span>
                       <span>
                         {Math.round(
-                          (data.savings.total / data.savings.goal) * 100
+                          Math.min((data.savings.total / data.savings.goal) * 100, 100)
                         )}
                         %
                       </span>
@@ -241,7 +241,7 @@ export function FinancialDetails({
                             ₹{expense.amount.toLocaleString()}
                           </span>
                         </div>
-                        <Progress value={expense.percentage} />
+                        <Progress value={Math.min(expense.percentage, 100)} />
                         <div className="text-right text-sm text-muted-foreground">
                           {expense.percentage}%
                         </div>
